@@ -1,13 +1,9 @@
+import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { View } from "./view.js";
 
-export class NegociacaoView {
-  private element: HTMLElement;
-
-  constructor(seletor: string) {
-    this.element = document.querySelector(seletor);
-  }
-
-  template(model: Negociacoes): string {
+export class NegociacaoView extends View<Negociacoes> {
+  protected template(model: Negociacoes): string {
     return `
       <table class="table table-hover table-bordered">
         <thead>
@@ -20,28 +16,36 @@ export class NegociacaoView {
         <tbody>
         ${model
           .lista()
-          .map(
-            (negociacao) => `
-            <tr>
-              <td>
-                ${new Intl.DateTimeFormat().format(negociacao.data)}
-              </td>
-              <td>
-                ${negociacao.quantidade}
-              </td>
-              <td>
-                ${negociacao.valor}
-              </td>
-            </tr>
-        `
-          )
+          .map((negociacao) => this.renderizarLinha(negociacao))
           .join(" ")}
         </tbody>
       </table
     `;
   }
 
-  update(model: Negociacoes): void {
-    this.element.innerHTML = this.template(model);
+  private formatar(model: Negociacao): {
+    data: string;
+    valor: string;
+    quantidade: number;
+  } {
+    return {
+      data: new Intl.DateTimeFormat().format(model.data),
+      quantidade: model.quantidade,
+      valor: Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(model.valor),
+    };
+  }
+
+  private renderizarLinha(model: Negociacao): string {
+    const dados = this.formatar(model);
+    return `
+      <tr>
+        <td>${dados.data}</td>
+        <td>${dados.quantidade}</td>
+        <td>${dados.valor}</td>
+      </tr>  
+    `;
   }
 }

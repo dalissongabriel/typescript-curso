@@ -5,12 +5,12 @@ export class Negociacoes {
 
   constructor() {}
 
-  adiciona(negociacao: Negociacao): Negociacoes {
+  public adiciona(negociacao: Negociacao): Negociacoes {
     this.negociacoes.push(negociacao);
     return this;
   }
 
-  lista(): readonly Negociacao[] {
+  public lista(): readonly Negociacao[] {
     return this.negociacoes;
   }
 }

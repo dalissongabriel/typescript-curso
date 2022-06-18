@@ -1,5 +1,6 @@
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
 
 export class NegociacaoController {
@@ -10,6 +11,7 @@ export class NegociacaoController {
   private negociacoesView: NegociacaoView = new NegociacaoView(
     "#negociacoesView"
   );
+  private mensagemView: MensagemView = new MensagemView("#mensagemView");
 
   constructor() {
     this.inputData = document.querySelector("#data");
@@ -19,14 +21,15 @@ export class NegociacaoController {
     this.negociacoesView.update(this.negociacoes);
   }
 
-  adiciona() {
+  public adiciona() {
     const negociacao = this.criaNegociacao();
     this.negociacoes.adiciona(negociacao);
     this.negociacoesView.update(this.negociacoes);
+    this.mensagemView.update("A negociação foi criada com sucesso!");
     this.limparFormulario();
   }
 
-  criaNegociacao(): Negociacao {
+  private criaNegociacao(): Negociacao {
     const exp = /-/g;
     const date = new Date(this.inputData.value.replace(exp, ","));
     const quantidade = parseInt(this.inputQuantidade.value);
@@ -34,7 +37,7 @@ export class NegociacaoController {
     return new Negociacao(date, quantidade, valor);
   }
 
-  limparFormulario() {
+  private limparFormulario() {
     this.inputData.value = "";
     this.inputQuantidade.value = "";
     this.inputValor.value = "";
