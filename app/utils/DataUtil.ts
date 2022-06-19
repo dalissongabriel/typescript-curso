@@ -1,4 +1,4 @@
-import { DiasDaSemana } from "../enums/dias-da-semana";
+import { DiasDaSemana } from "../enums/dias-da-semana.js";
 
 export class DataUtils {
   public static ehDiaUtil(data: Date): boolean {

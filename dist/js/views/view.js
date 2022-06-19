@@ -1,9 +1,15 @@
+import { RegexUtils } from "../utils/RegexUtils.js";
 export class View {
-    constructor(seletor) {
+    constructor(seletor, escapar) {
+        this.escapar = false;
         this.elemento = document.querySelector(seletor);
+        this.escapar = escapar;
     }
     update(model) {
-        const template = this.template(model);
+        let template = this.template(model);
+        if (this.escapar) {
+            template = RegexUtils.SanitizarHTML(template);
+        }
         this.elemento.innerHTML = template;
     }
 }

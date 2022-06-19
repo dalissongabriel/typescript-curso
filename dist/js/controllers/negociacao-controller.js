@@ -7,7 +7,7 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
 export class NegociacaoController {
     constructor() {
-        this.negociacoesView = new NegociacaoView("#negociacoesView");
+        this.negociacoesView = new NegociacaoView("#negociacoesView", true);
         this.mensagemView = new MensagemView("#mensagemView");
         this.inputData = document.querySelector("#data");
         this.inputQuantidade = document.querySelector("#quantidade");
