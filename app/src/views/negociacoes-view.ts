@@ -1,5 +1,7 @@
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { DataUtils } from "../utils/DataUtil.js";
+import { NumerosUtils } from "../utils/NumerosUtils.js";
 import { View } from "./view.js";
 
 export class NegociacaoView extends View<Negociacoes> {
@@ -29,12 +31,9 @@ export class NegociacaoView extends View<Negociacoes> {
     quantidade: number;
   } {
     return {
-      data: new Intl.DateTimeFormat().format(model.data),
+      data: DataUtils.formatar(model.data),
       quantidade: model.quantidade,
-      valor: Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(model.valor),
+      valor: NumerosUtils.formatarMoeda(model.valor),
     };
   }
 

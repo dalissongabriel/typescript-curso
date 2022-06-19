@@ -34,7 +34,6 @@ export class NegociacaoController {
       this.inputQuantidade.value,
       this.inputValor.value
     );
-    console.log(negociacao);
 
     if (!DataUtils.ehDiaUtil(negociacao.data)) {
       this.mensagemView.update(
