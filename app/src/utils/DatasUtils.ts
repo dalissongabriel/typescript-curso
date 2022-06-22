@@ -1,12 +1,15 @@
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
 
-export class DataUtils {
+export class DatasUtils {
   public static intl = new Intl.DateTimeFormat();
 
   public static ehDiaUtil(data: Date): boolean {
-    const hoje = data.getDay();
+    const hojeDiaDaSemana = data.getDay();
 
-    return hoje > DiasDaSemana.DOMINGO && hoje < DiasDaSemana.SABADO;
+    return (
+      hojeDiaDaSemana > DiasDaSemana.DOMINGO &&
+      hojeDiaDaSemana < DiasDaSemana.SABADO
+    );
   }
 
   public static formatar(data: Date): string {

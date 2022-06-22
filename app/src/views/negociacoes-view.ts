@@ -1,6 +1,6 @@
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
-import { DataUtils } from "../utils/DataUtil.js";
+import { DatasUtils } from "../utils/DatasUtils.js";
 import { NumerosUtils } from "../utils/NumerosUtils.js";
 import { View } from "./view.js";
 
@@ -31,7 +31,7 @@ export class NegociacaoView extends View<Negociacoes> {
     quantidade: number;
   } {
     return {
-      data: DataUtils.formatar(model.data),
+      data: DatasUtils.formatar(model.data),
       quantidade: model.quantidade,
       valor: NumerosUtils.formatarMoeda(model.valor),
     };

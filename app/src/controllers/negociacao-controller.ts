@@ -2,7 +2,7 @@ import { TiposDeMensagem } from "../enums/tipos-de-mensagens.js";
 import { Mensagem } from "../models/mensagem.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
-import { DataUtils } from "../utils/DataUtil.js";
+import { DatasUtils } from "../utils/DatasUtils.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
 
@@ -35,7 +35,7 @@ export class NegociacaoController {
       this.inputValor.value
     );
 
-    if (!DataUtils.ehDiaUtil(negociacao.data)) {
+    if (!DatasUtils.ehDiaUtil(negociacao.data)) {
       this.mensagemView.update(
         new Mensagem(
           TiposDeMensagem.ERRO,
