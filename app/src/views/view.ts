@@ -1,3 +1,4 @@
+import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
 import { RegexUtils } from "../utils/RegexUtils.js";
 
 export abstract class View<T> {
@@ -19,6 +20,7 @@ export abstract class View<T> {
 
   protected abstract template(model: T): string;
 
+  @logarTempoExecucao()
   public update(model: T): void {
     let template = this.template(model);
 
