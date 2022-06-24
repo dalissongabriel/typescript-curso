@@ -9,6 +9,7 @@ import { TiposDeMensagem } from "../enums/tipos-de-mensagens.js";
 import { Mensagem } from "../models/mensagem.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacoesService } from "../services/negociacoes-service.js";
 import { DatasUtils } from "../utils/DatasUtils.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
@@ -17,6 +18,7 @@ export class NegociacaoController {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacaoView("#negociacoesView");
         this.mensagemView = new MensagemView("#mensagemView");
+        this.negociacoesService = new NegociacoesService();
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
@@ -38,6 +40,16 @@ export class NegociacaoController {
     updateTemplate() {
         this.negociacoesView.update(this.negociacoes);
         this.mensagemView.update(new Mensagem(TiposDeMensagem.SUCESSO, "A negociação foi criada com sucesso!"));
+    }
+    importa() {
+        this.negociacoesService
+            .obterNegociacoesDoDia()
+            .then((negociacoesdeHoje) => {
+            for (let negociacao of negociacoesdeHoje) {
+                this.negociacoes.adiciona(negociacao);
+            }
+            this.negociacoesView.update(this.negociacoes);
+        });
     }
 }
 __decorate([

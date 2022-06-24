@@ -9,5 +9,16 @@ if (form) {
     controller.adiciona();
   });
 } else {
-  throw new Error("Não foi possível localizer o formulário de negociações.");
+  throw new Error("Não foi possível localizar o formulário de negociações.");
+}
+
+const botaoImportar = document.querySelector("#botao-importar");
+
+if (botaoImportar) {
+  botaoImportar.addEventListener("click", (event) => {
+    event.preventDefault();
+    controller.importa();
+  });
+} else {
+  throw new Error("Não foi possível importar.");
 }

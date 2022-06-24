@@ -3,6 +3,7 @@ import { TiposDeMensagem } from "../enums/tipos-de-mensagens.js";
 import { Mensagem } from "../models/mensagem.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacoesService } from "../services/negociacoes-service.js";
 import { DatasUtils } from "../utils/DatasUtils.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
@@ -20,6 +21,7 @@ export class NegociacaoController {
     "#negociacoesView"
   );
   private mensagemView: MensagemView = new MensagemView("#mensagemView");
+  private negociacoesService = new NegociacoesService();
 
   constructor() {
     this.negociacoesView.update(this.negociacoes);
@@ -63,5 +65,16 @@ export class NegociacaoController {
         "A negociação foi criada com sucesso!"
       )
     );
+  }
+
+  importa(): void {
+    this.negociacoesService
+      .obterNegociacoesDoDia()
+      .then((negociacoesdeHoje) => {
+        for (let negociacao of negociacoesdeHoje) {
+          this.negociacoes.adiciona(negociacao);
+        }
+        this.negociacoesView.update(this.negociacoes);
+      });
   }
 }
