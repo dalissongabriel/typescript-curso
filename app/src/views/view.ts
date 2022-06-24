@@ -1,11 +1,7 @@
-import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
-import { RegexUtils } from "../utils/RegexUtils.js";
-
 export abstract class View<T> {
   protected elemento: HTMLElement;
-  public escapar: boolean;
 
-  constructor(seletor: string, escapar = false) {
+  constructor(seletor: string) {
     const elemento = document.querySelector(seletor);
     if (elemento) {
       this.elemento = elemento as HTMLElement;
@@ -14,20 +10,12 @@ export abstract class View<T> {
         `Não foi possível localiar nenhum elemento Html com o seletor: ${seletor}.`
       );
     }
-
-    this.escapar = escapar;
   }
 
   protected abstract template(model: T): string;
 
-  @logarTempoExecucao()
   public update(model: T): void {
     let template = this.template(model);
-
-    if (this.escapar) {
-      template = RegexUtils.SanitizarHTML(template);
-    }
-
     this.elemento.innerHTML = template;
   }
 }

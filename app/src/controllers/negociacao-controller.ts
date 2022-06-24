@@ -1,4 +1,4 @@
-import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
+import { domInjector } from "../decorators/dom-injector.js";
 import { TiposDeMensagem } from "../enums/tipos-de-mensagens.js";
 import { Mensagem } from "../models/mensagem.js";
 import { Negociacao } from "../models/negociacao.js";
@@ -8,28 +8,23 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
 
 export class NegociacaoController {
+  @domInjector("#data")
   private inputData: HTMLInputElement;
+  @domInjector("#quantidade")
   private inputQuantidade: HTMLInputElement;
+  @domInjector("#valor")
   private inputValor: HTMLInputElement;
-  private negociacoes: Negociacoes;
+
+  private negociacoes: Negociacoes = new Negociacoes();
   private negociacoesView: NegociacaoView = new NegociacaoView(
-    "#negociacoesView",
-    true
+    "#negociacoesView"
   );
   private mensagemView: MensagemView = new MensagemView("#mensagemView");
 
   constructor() {
-    this.inputData = document.querySelector("#data") as HTMLInputElement;
-    this.inputQuantidade = document.querySelector(
-      "#quantidade"
-    ) as HTMLInputElement;
-    this.inputValor = document.querySelector("#valor") as HTMLInputElement;
-
-    this.negociacoes = new Negociacoes();
     this.negociacoesView.update(this.negociacoes);
   }
 
-  @logarTempoExecucao()
   public adiciona(): void {
     const negociacao = Negociacao.criarNegociacaoCom(
       this.inputData.value,
