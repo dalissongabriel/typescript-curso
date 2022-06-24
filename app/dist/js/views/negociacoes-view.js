@@ -5,8 +5,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { escapar } from "../decorators/escapar.js";
-import { DatasUtils } from "../utils/DatasUtils.js";
-import { NumerosUtils } from "../utils/NumerosUtils.js";
+import { DatasUtils } from "../utils/datas-utils.js";
+import { NumerosUtils } from "../utils/numeros-utils.js";
 import { View } from "./view.js";
 export class NegociacaoView extends View {
     template(model) {

@@ -1,4 +1,4 @@
-import { RegexUtils } from "../utils/RegexUtils.js";
+import { RegexUtils } from "../utils/regex-utils.js";
 export function escapar(target, propertyKey, descriptor) {
     const metodoOriginal = descriptor.value;
     descriptor.value = function (...args) {

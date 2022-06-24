@@ -1,8 +1,8 @@
 import { escapar } from "../decorators/escapar.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
-import { DatasUtils } from "../utils/DatasUtils.js";
-import { NumerosUtils } from "../utils/NumerosUtils.js";
+import { DatasUtils } from "../utils/datas-utils.js";
+import { NumerosUtils } from "../utils/numeros-utils.js";
 import { View } from "./view.js";
 
 export class NegociacaoView extends View<Negociacoes> {

@@ -4,7 +4,8 @@ import { Mensagem } from "../models/mensagem.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { NegociacoesService } from "../services/negociacoes-service.js";
-import { DatasUtils } from "../utils/DatasUtils.js";
+import { DatasUtils } from "../utils/datas-utils.js";
+import { imprimir } from "../utils/imprimir-utils.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacaoView } from "../views/negociacoes-view.js";
 
@@ -44,7 +45,7 @@ export class NegociacaoController {
 
       return;
     }
-
+    imprimir(negociacao, this.negociacoes);
     this.negociacoes.adiciona(negociacao);
     this.updateTemplate();
     this.limparFormulario();
@@ -71,7 +72,14 @@ export class NegociacaoController {
     this.negociacoesService
       .obterNegociacoesDoDia()
       .then((negociacoesdeHoje) => {
-        for (let negociacao of negociacoesdeHoje) {
+        return negociacoesdeHoje.filter((negociacaoDeHoje) => {
+          return !this.negociacoes
+            .lista()
+            .some((negociacao) => negociacao.ehIgual(negociacaoDeHoje));
+        });
+      })
+      .then((negociacoesdeHojeNaoDuplicadas) => {
+        for (let negociacao of negociacoesdeHojeNaoDuplicadas) {
           this.negociacoes.adiciona(negociacao);
         }
         this.negociacoesView.update(this.negociacoes);
